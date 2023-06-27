@@ -1,0 +1,47 @@
+---
+title: "smoker"
+author: "Alvinkim"
+date: "2023-06-27"
+output: html_documentnrow)
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#1.주어진 엑셀 데이터를 읽어 R 데이터프레임 smokers로 저장하시오.
+
+```{r}
+#install.packages("readxl")
+library(readxl)
+smokers = read_xlsx("C:/Users/alvin/OneDrive/문서/Workshop/smoker/smoke.xlsx")
+```
+
+#2.smokers에서 자료의 수(레코드의 수)를 구하시오.
+
+```{r}
+nrow(smokers)
+```
+#3.smokers 자료의 앞에서 부터 10개의 레코드를 출력하여라.
+
+```{r}
+head(smokers, 10) # 또는
+smokers[1:10, ]
+```
+# 4.자료에서 여자와 남자의 수를 구하시오.
+```{r}
+table(smokers$Gender)
+```
+#5.자료에서 흡연자의 수와 흡연비율을 구하시오.
+
+```{r}
+n_smokers = table(smokers$Smoker)[2];n_smokers
+n_smokers/nrow(smokers)
+```
+
+```{r}
+n_smokers = sum(smokers$Smoker=="yes"); n_smokers
+n_smokers/nrow(smokers)
+```
+
+
