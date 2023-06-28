@@ -2,7 +2,6 @@
 title: "smoker"
 author: "Alvinkim"
 date: "2023-06-27"
-output: html_documentnrow)
 ---
 
 ```{r setup, include=FALSE}
@@ -43,5 +42,48 @@ n_smokers/nrow(smokers)
 n_smokers = sum(smokers$Smoker=="yes"); n_smokers
 n_smokers/nrow(smokers)
 ```
+#6.자료에서 성별 흡연자의 수와 흡연비율을 구하시오.
+```{r}
+## (1)
+  tx = table(Smoker=smokers$Smoker, Gender=smokers$Gender)
+  tx
+  prop.table(tx,2) # 1은 행계산 ,2는 
+  
+```
+#7.BMI(체질량지수)는 몸무게를 키의 제곱(m2 )으로 나눈 값이다. 자료에서 BMI를 구하여라.
 
+```{r}
+smokers$BMI = smokers$Weight/(smokers$Height/100)^2
+  head(smokers)
+```
+#8.성별 BMI의 평균과 표준편차를 구하라
+
+```{r}
+ mean(smokers$BMI[smokers$Gender=="F"])
+ mean(smokers$BMI[smokers$Gender=="M"])
+```
+```{r}
+aggregate(BMI~Gender, data=smokers, mean)
+aggregate(smokers$BMI, list(smokers$Gender), mean)
+```
+#9.성별 BMI를 상자그림으로 그려라.
+```{r}
+boxplot(BMI~Gender, data=smokers, ylab="BMI", xlab="Gender")
+```
+#10.흡연 및 비흡연자의 BMI의 평균과 표준편차를 구하라.
+
+```{r}
+mean(smokers$BMI[smokers$Smoker=="yes"])
+mean(smokers$BMI[smokers$Smoker=="no"])
+```
+```{r}
+  m = aggregate(BMI~Smoker, data=smokers, mean)
+  s = aggregate(BMI~Smoker, data=smokers, sd)
+  cbind(mean=m, sd=s[,2])
+```
+
+#11.흡연 및 비흡연자의 BMI를 상자그림으로 그려라.
+```{r}
+ boxplot(BMI~Smoker, data=smokers, ylab="BMI", xlab="Smoker")
+```
 
